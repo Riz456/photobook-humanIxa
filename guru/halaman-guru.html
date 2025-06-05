@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guru Pengajar | SMP Negeri 2 Kaliwungu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4A6FA5; /* Soft blue */
+            --primary-light: rgba(74, 111, 165, 0.15);
+            --primary-dark: #3A5A8A;
+            --secondary: #6BBBAE; /* Soft teal */
+            --accent: #8FD8D2;
+            --light: #F5F9FF; /* Very light blue */
+            --dark: #2C3E50;
+            --text: #4A5568;
+            
+            /* Dark mode */
+            --dark-bg: #1A2639;
+            --dark-card: #243447;
+            --dark-text: #E0E7FF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        body.dark-mode h1, 
+        body.dark-mode h2, 
+        body.dark-mode h3 {
+            color: var(--dark-text);
+        }
+
+        /* Floating bubbles background */
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+            opacity: 0.6;
+            filter: blur(20px);
+            animation: float 25s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(5vw, 10vh) rotate(90deg); }
+            50% { transform: translate(10vw, 5vh) rotate(180deg); }
+            75% { transform: translate(-5vw, -5vh) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+        /* Glass morphism header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s ease;
+        }
+
+        body.dark-mode .header {
+            background: rgba(26, 38, 57, 0.8);
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(74, 111, 165, 0.3);
+        }
+
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        body.dark-mode .mobile-menu-btn {
+            color: var(--dark-text);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        body.dark-mode .theme-toggle {
+            color: var(--dark-text);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg) scale(1.1);
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        /* Main content */
+        .main-content {
+            padding: 120px 5% 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        /* Teacher filter */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border: none;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        /* Teachers grid */
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .teacher-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(30px);
+            cursor: pointer;
+        }
+
+        body.dark-mode .teacher-card {
+            background: var(--dark-card);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .teacher-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .teacher-card:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .teacher-img-container {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .teacher-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .teacher-card:hover .teacher-img {
+            transform: scale(1.1);
+        }
+
+        .teacher-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .teacher-name {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        body.dark-mode .teacher-name {
+            color: var(--dark-text);
+        }
+
+        .teacher-subject {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .teacher-desc {
+            color: var(--text);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        body.dark-mode .teacher-desc {
+            color: rgba(224, 231, 255, 0.8);
+        }
+
+        .teacher-contact {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .contact-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Floating elements */
+        .floating {
+            position: absolute;
+            animation: floating 6s ease-in-out infinite;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--dark), #243447);
+            color: white;
+            padding: 60px 5% 30px;
+            position: relative;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .footer-logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .footer-desc {
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: 15px;
+        }
+
+        .footer-link a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-link a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .footer-social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social-link:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: white;
+            z-index: 100;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 80px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .mobile-menu {
+            background: var(--dark-card);
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu.show {
+            right: 0;
+        }
+
+        .mobile-menu .nav-link {
+            font-size: 1.2rem;
+            padding: 10px 0;
+            color: var(--text);
+        }
+
+        body.dark-mode .mobile-menu .nav-link {
+            color: var(--dark-text);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        body.dark-mode .mobile-menu-close {
+            color: var(--dark-text);
+        }
+
+        /* Overlay for mobile menu */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Modal Biodata Guru */
+        .guru-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .guru-modal {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .guru-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .modal-content {
+            background: var(--dark-card);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .guru-modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        body.dark-mode .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        body.dark-mode .modal-title {
+            color: var(--accent);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .close-modal {
+            color: var(--dark-text);
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+        }
+
+        .modal-biodata {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-img {
+            width: 100%;
+            border-radius: 12px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .modal-img {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .biodata-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .biodata-icon {
+            color: var(--primary);
+            margin-top: 3px;
+        }
+
+        .biodata-label {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        body.dark-mode .biodata-label {
+            color: var(--dark-text);
+        }
+
+        .biodata-value {
+            color: var(--text);
+        }
+
+        body.dark-mode .biodata-value {
+            color: rgba(224, 231, 255, 0.8);
+        }
+
+        .modal-gallery {
+            margin-top: 30px;
+        }
+
+        .gallery-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        body.dark-mode .gallery-title {
+            color: var(--dark-text);
+        }
+
+        .gallery-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .gallery-slider {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .gallery-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 15px;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .slider-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            color: var(--primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .slider-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(74, 111, 165, 0.3);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .main-content {
+                padding: 100px 5% 60px;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .teachers-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .teacher-img-container {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 40px;
+            }
+
+            .filter-container {
+                margin-bottom: 30px;
+            }
+
+            .modal-body {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-img {
+                max-width: 250px;
+                margin: 0 auto;
+            }
+            
+            .gallery-image {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content {
+                padding: 90px 5% 40px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .teacher-card {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating bubbles background -->
+    <div class="bubbles">
+        <div class="bubble" style="width: 300px; height: 300px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="bubble" style="width: 200px; height: 200px; top: 60%; left: 70%; animation-delay: 2s;"></div>
+        <div class="bubble" style="width: 250px; height: 250px; top: 30%; left: 40%; animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Glass morphism header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-school"></i>
+            </div>
+            <div class="logo-text">SMPN 2 Kaliwungu</div>
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="index.html" class="nav-link">Beranda</a>
+        <a href="guru.html" class="nav-link">Guru Pengajar</a>
+        <a href="galeri.html" class="nav-link">Galeri</a>
+        <a href="prestasi.html" class="nav-link">Prestasi</a>
+        <a href="kontak.html" class="nav-link">Kontak</a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="section-title">Guru Pengajar</h1>
+        
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">Semua</button>
+            <button class="filter-btn" data-filter="matematika">Matematika</button>
+            <button class="filter-btn" data-filter="ipa">IPA</button>
+            <button class="filter-btn" data-filter="ips">IPS</button>
+            <button class="filter-btn" data-filter="bahasa">Bahasa</button>
+            <button class="filter-btn" data-filter="agama">Agama</button>
+        </div>
+        
+        <div class="teachers-grid">
+            <!-- Guru 1 -->
+            <div class="teacher-card" data-category="matematika">
+                <div class="teacher-img-container">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Bapak Ahmad S.Pd" class="teacher-img">
+                </div>
+                <div class="teacher-info">
+                    <h3 class="teacher-name">Bapak Ahmad S.Pd</h3>
+                    <p class="teacher-subject">Guru Matematika</p>
+                    <p class="teacher-desc">Pengajar matematika dengan pengalaman 15 tahun, spesialisasi dalam aljabar dan geometri.</p>
+                    <div class="teacher-contact">
+                        <a href="#" class="contact-link"><i class="fas fa-envelope"></i></a>
+                        <a href="#" class="contact-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Guru 2 -->
+            <div class="teacher-card" data-category="ipa">
+                <div class="teacher-img-container">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Ibu Budiarti S.Pd" class="teacher-img">
+                </div>
+                <div class="teacher-info">
+                    <h3 class="teacher-name">Ibu Budiarti S.Pd</h3>
+                    <p class="teacher-subject">Guru IPA</p>
+                    <p class="teacher-desc">Ahli dalam bidang biologi dengan pendekatan eksperimen langsung untuk pembelajaran.</p>
+                    <div class="teacher-contact">
+                        <a href="#" class="contact-link"><i class="fas fa-envelope"></i></a>
+                        <a href="#" class="contact-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Guru 3 -->
+            <div class="teacher-card" data-category="bahasa">
+                <div class="teacher-img-container">
+                    <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Ibu Citra M.Pd" class="teacher-img">
+                </div>
+                <div class="teacher-info">
+                    <h3 class="teacher-name">Ibu Citra M.Pd</h3>
+                    <p class="teacher-subject">Guru Bahasa Inggris</p>
+                    <p class="teacher-desc">Spesialis pengajaran bahasa Inggris dengan metode komunikatif dan interaktif.</p>
+                    <div class="teacher-contact">
+                        <a href="#" class="contact-link"><i class="fas fa-envelope"></i></a>
+                        <a href="#" class="contact-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Guru 4 -->
+            <div class="teacher-card" data-category="ips">
+                <div class="teacher-img-container">
+                    <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Bapak Darma S.Pd" class="teacher-img">
+                </div>
+                <div class="teacher-info">
+                    <h3 class="teacher-name">Bapak Darma S.Pd</h3>
+                    <p class="teacher-subject">Guru IPS</p>
+                    <p class="teacher-desc">Fokus pada pembelajaran sejarah Indonesia dengan pendekatan kontekstual.</p>
+                    <div class="teacher-contact">
+                        <a href="#" class="contact-link"><i class="fas fa-envelope"></i></a>
+                        <a href="#" class="contact-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Guru 5 -->
+            <div class="teacher-card" data-category="agama">
+                <div class="teacher-img-container">
+                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Bapak Eko S.Ag" class="teacher-img">
+                </div>
+                <div class="teacher-info">
+                    <h3 class="teacher-name">Bapak Eko S.Ag</h3>
+                    <p class="teacher-subject">Guru Agama Islam</p>
+                    <p class="teacher-desc">Mengajarkan nilai-nilai agama dengan pendekatan yang menyenangkan dan aplikatif.</p>
+                    <div class="teacher-contact">
+                        <a href="#" class="contact-link"><i class="fas fa-envelope"></i></a>
+                        <a href="#" class="contact-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Guru 6 -->
+            <div class="teacher-card" data-category="bahasa">
+                <div class="teacher-img-container">
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Ibu Fitriani S.Pd" class="teacher-img">
+                </div>
+                <div class="teacher-info">
+                    <h3 class="teacher-name">Ibu Fitriani S.Pd</h3>
+                    <p class="teacher-subject">Guru Bahasa Indonesia</p>
+                    <p class="teacher-desc">Spesialis sastra Indonesia dan teknik penulisan kreatif untuk siswa.</p>
+                    <div class="teacher-contact">
+                        <a href="#" class="contact-link"><i class="fas fa-envelope"></i></a>
+                        <a href="#" class="contact-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Guru 7 -->
+            <div class="teacher-card" data-category="ipa">
+                <div class="teacher-img-container">
+                    <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Bapak Gunawan M.Pd" class="teacher-img">
+                </div>
+                <div class="teacher-info">
+                    <h3 class="teacher-name">Bapak Gunawan M.Pd</h3>
+                    <p class="teacher-subject">Guru Fisika</p>
+                    <p class="teacher-desc">Ahli dalam pembelajaran fisika dengan eksperimen praktis dan demonstrasi.</p>
+                    <div class="teacher-contact">
+                        <a href="#" class="contact-link"><i class="fas fa-envelope"></i></a>
+                        <a href="#" class="contact-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Guru 8 -->
+            <div class="teacher-card" data-category="matematika">
+                <div class="teacher-img-container">
+                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ibu Hani S.Pd" class="teacher-img">
+                </div>
+                <div class="teacher-info">
+                    <h3 class="teacher-name">Ibu Hani S.Pd</h3>
+                    <p class="teacher-subject">Guru Matematika</p>
+                    <p class="teacher-desc">Spesialis matematika dasar dengan metode pembelajaran yang menyenangkan.</p>
+                    <div class="teacher-contact">
+                        <a href="#" class="contact-link"><i class="fas fa-envelope"></i></a>
+                        <a href="#" class="contact-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <div class="footer-logo-text">SMPN 2 Kaliwungu</div>
+                </div>
+                <p class="footer-desc">
+                    Sekolah Menengah Pertama Negeri 2 Kaliwungu merupakan lembaga pendidikan yang berkomitmen untuk mencetak generasi unggul dan berkarakter.
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="footer-social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="footer-social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="footer-social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-title">Menu Cepat</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="index.html"><i class="fas fa-chevron-right"></i> Beranda</a></li>
+                    <li class="footer-link"><a href="guru.html"><i class="fas fa-chevron-right"></i> Guru Pengajar</a></li>
+                    <li class="footer-link"><a href="galeri.html"><i class="fas fa-chevron-right"></i> Galeri Sekolah</a></li>
+                    <li class="footer-link"><a href="prestasi.html"><i class="fas fa-chevron-right"></i> Prestasi</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-title">Kontak Kami</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#"><i class="fas fa-map-marker-alt"></i> Jl. Pendidikan No. 123, Kaliwungu</a></li>
+                    <li class="footer-link"><a href="tel:+62241234567"><i class="fas fa-phone-alt"></i> (024) 1234567</a></li>
+                    <li class="footer-link"><a href="mailto:info@smpn2kaliwungu.sch.id"><i class="fas fa-envelope"></i> info@smpn2kaliwungu.sch.id</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 SMP Negeri 2 Kaliwungu. Seluruh hak cipta dilindungi.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Biodata Guru -->
+    <div class="guru-modal" id="guruModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Biodata Guru</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Konten akan diisi oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved user preference
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            body.classList.add(currentTheme);
+            if (currentTheme === 'dark-mode') {
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', '');
+            }
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const menuOverlay = document.getElementById('menuOverlay');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('show');
+            menuOverlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('show');
+            menuOverlay.classList.remove('show');
+            document.body.style.overflow = '';
+        });
+        
+        menuOverlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('show');
+            menuOverlay.classList.remove('show');
+            document.body.style.overflow = '';
+        });
+        
+        // Teacher Filter Functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const teacherCards = document.querySelectorAll('.teacher-card');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                
+                teacherCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all teacher cards
+        teacherCards.forEach(card => {
+            observer.observe(card);
+        });
+
+        // Data guru lengkap
+        const guruData = {
+            "Bapak Ahmad S.Pd": {
+                subject: "Matematika",
+                image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                biodata: {
+                    namaLengkap: "Ahmad Susanto, S.Pd",
+                    nip: "196512102005011001",
+                    pangkat: "Pembina Tingkat I, IV/b",
+                    jabatan: "Guru Matematika",
+                    pendidikan: "S1 Pendidikan Matematika - Universitas Negeri Semarang",
+                    email: "ahmad@smpn2kaliwungu.sch.id",
+                    telepon: "081234567890",
+                    alamat: "Jl. Merdeka No. 45, Kaliwungu",
+                    motto: "Matematika itu mudah jika diajarkan dengan hati"
+                },
+                deskripsi: "Pengajar matematika dengan pengalaman 15 tahun, spesialisasi dalam aljabar dan geometri. Memiliki pendekatan pembelajaran yang menyenangkan dan aplikatif untuk membuat siswa mencintai matematika.",
+                gallery: [
+                    "https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80",
+                    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                    "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80",
+                    "https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+                ]
+            },
+            "Ibu Budiarti S.Pd": {
+                subject: "IPA",
+                image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80",
+                biodata: {
+                    namaLengkap: "Budiarti Wulandari, S.Pd",
+                    nip: "197003152006042001",
+                    pangkat: "Pembina, IV/a",
+                    jabatan: "Guru IPA",
+                    pendidikan: "S1 Pendidikan Biologi - Universitas Negeri Yogyakarta",
+                    email: "budiarti@smpn2kaliwungu.sch.id",
+                    telepon: "081298765432",
+                    alamat: "Jl. Kenanga No. 12, Kaliwungu",
+                    motto: "Belajar sains dengan menyenangkan melalui eksperimen"
+                },
+                deskripsi: "Ahli dalam bidang biologi dengan pendekatan eksperimen langsung untuk pembelajaran. Membimbing siswa dalam berbagai proyek penelitian ilmiah dan kompetisi sains.",
+                gallery: [
+                    "https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                    "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                    "https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                ]
+            },
+            "Ibu Citra M.Pd": {
+                subject: "Bahasa Inggris",
+                image: "https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                biodata: {
+                    namaLengkap: "Citra Dewi Anggraeni, M.Pd",
+                    nip: "198511212014022001",
+                    pangkat: "Penata, III/c",
+                    jabatan: "Guru Bahasa Inggris",
+                    pendidikan: "S2 Pendidikan Bahasa Inggris - Universitas Pendidikan Indonesia",
+                    email: "citra@smpn2kaliwungu.sch.id",
+                    telepon: "082112345678",
+                    alamat: "Jl. Mawar No. 8, Kaliwungu",
+                    motto: "English is fun when you learn it with passion"
+                },
+                deskripsi: "Spesialis pengajaran bahasa Inggris dengan metode komunikatif dan interaktif. Berpengalaman mengajar selama 10 tahun dan pernah menjadi guru pertukaran di Australia selama 1 tahun.",
+                gallery: [
+                    "https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80",
+                    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                ]
+            },
+            // Data untuk guru lainnya...
+        };
+
+        // Fungsi untuk membuka modal guru
+        function openGuruModal(guruName) {
+            const guru = guruData[guruName];
+            if (!guru) return;
+            
+            const modal = document.getElementById('guruModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            // Set judul modal
+            modalTitle.textContent = `Biodata ${guruName}`;
+            
+            // Buat konten modal
+            let biodataHTML = `
+                <div class="modal-biodata">
+                    <img src="${guru.image}" alt="${guruName}" class="modal-img">
+                    <div class="biodata-item">
+                        <i class="fas fa-user biodata-icon"></i>
+                        <div>
+                            <p class="biodata-label">Nama Lengkap</p>
+                            <p class="biodata-value">${guru.biodata.namaLengkap}</p>
+                        </div>
+                    </div>
+                    <div class="biodata-item">
+                        <i class="fas fa-id-card biodata-icon"></i>
+                        <div>
+                            <p class="biodata-label">NIP</p>
+                            <p class="biodata-value">${guru.biodata.nip}</p>
+                        </div>
+                    </div>
+                    <div class="biodata-item">
+                        <i class="fas fa-award biodata-icon"></i>
+                        <div>
+                            <p class="biodata-label">Pangkat/Golongan</p>
+                            <p class="biodata-value">${guru.biodata.pangkat}</p>
+                        </div>
+                    </div>
+                    <div class="biodata-item">
+                        <i class="fas fa-briefcase biodata-icon"></i>
+                        <div>
+                            <p class="biodata-label">Jabatan</p>
+                            <p class="biodata-value">${guru.biodata.jabatan}</p>
+                        </div>
+                    </div>
+                    <div class="biodata-item">
+                        <i class="fas fa-graduation-cap biodata-icon"></i>
+                        <div>
+                            <p class="biodata-label">Pendidikan</p>
+                            <p class="biodata-value">${guru.biodata.pendidikan}</p>
+                        </div>
+                    </div>
+                    <div class="biodata-item">
+                        <i class="fas fa-envelope biodata-icon"></i>
+                        <div>
+                            <p class="biodata-label">Email</p>
+                            <p class="biodata-value">${guru.biodata.email}</p>
+                        </div>
+                    </div>
+                    <div class="biodata-item">
+                        <i class="fas fa-phone biodata-icon"></i>
+                        <div>
+                            <p class="biodata-label">Telepon</p>
+                            <p class="biodata-value">${guru.biodata.telepon}</p>
+                        </div>
+                    </div>
+                    <div class="biodata-item">
+                        <i class="fas fa-map-marker-alt biodata-icon"></i>
+                        <div>
+                            <p class="biodata-label">Alamat</p>
+                            <p class="biodata-value">${guru.biodata.alamat}</p>
+                        </div>
+                    </div>
+                    <div class="biodata-item">
+                        <i class="fas fa-quote-left biodata-icon"></i>
+                        <div>
+                            <p class="biodata-label">Motto</p>
+                            <p class="biodata-value">"${guru.biodata.motto}"</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-deskripsi">
+                    <h4 class="biodata-label">Deskripsi</h4>
+                    <p class="biodata-value">${guru.deskripsi}</p>
+                    
+                    <div class="modal-gallery">
+                        <h4 class="gallery-title">Galeri Kenangan</h4>
+                        <div class="gallery-slider">
+                            <div class="gallery-track" id="galleryTrack">
+                                ${guru.gallery.map(img => `
+                                    <div class="gallery-slide">
+                                        <img src="${img}" alt="Kenangan dengan ${guruName}" class="gallery-image">
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="slider-nav">
+                                <button class="slider-btn" id="prevSlide"><i class="fas fa-chevron-left"></i></button>
+                                <button class="slider-btn" id="nextSlide"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="slider-dots" id="sliderDots">
+                                ${guru.gallery.map((_, index) => `
+                                    <button class="slider-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modalBody.innerHTML = biodataHTML;
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            
+            // Inisialisasi slider
+            initSlider();
+        }
+
+        // Fungsi untuk menginisialisasi slider
+        function initSlider() {
+            const track = document.getElementById('galleryTrack');
+            const slides = document.querySelectorAll('.gallery-slide');
+            const dots = document.querySelectorAll('.slider-dot');
+            const prevBtn = document.getElementById('prevSlide');
+            const nextBtn = document.getElementById('nextSlide');
+            
+            if (!track || !slides.length) return;
+            
+            let currentSlide = 0;
+            const slideCount = slides.length;
+            
+            // Update posisi slider
+            function updateSlider() {
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Update dot aktif
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlide);
+                });
+            }
+            
+            // Next slide
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slideCount;
+                updateSlider();
+            }
+            
+            // Previous slide
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+                updateSlider();
+            }
+            
+            // Event listeners
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // Dot navigation
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    currentSlide = parseInt(dot.dataset.index);
+                    updateSlider();
+                });
+            });
+            
+            // Auto slide (opsional)
+            let slideInterval = setInterval(nextSlide, 5000);
+            
+            // Hentikan auto slide ketika hover
+            track.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            
+            track.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(nextSlide, 5000);
+            });
+        }
+
+        // Tutup modal
+        document.getElementById('closeModal').addEventListener('click', () => {
+            document.getElementById('guruModal').classList.remove('show');
+            document.body.style.overflow = '';
+        });
+
+        // Klik di luar modal untuk menutup
+        document.getElementById('guruModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('guruModal')) {
+                document.getElementById('guruModal').classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Tambahkan event listener untuk card guru
+        document.querySelectorAll('.teacher-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const guruName = card.querySelector('.teacher-name').textContent;
+                openGuruModal(guruName);
+            });
+        });
+
+        // Current year for footer copyright
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
