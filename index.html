@@ -3,17 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon | Album Kenangan SMP 2 Kaliwungu</title>
+    <title>Esperoka | Album Kenangan IX A</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-        :root {
-            --primary: #8E7CFF;
-            --secondary: #FF9F9F;
-            --accent: #A5FFD6;
-            --dark: #1A1A2E;
-            --light: #FAF8FF;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -22,256 +14,262 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--dark);
+            background: #1A1A2E;
             color: white;
             height: 100vh;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(142, 124, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 159, 159, 0.1) 0%, transparent 50%);
         }
 
-        .container {
-            max-width: 800px;
-            padding: 2rem;
+        .opening-container {
+            text-align: center;
             position: relative;
-            z-index: 1;
+            z-index: 10;
         }
 
         .logo {
+            margin-bottom: 30px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 2rem;
         }
 
         .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #8E7CFF, #FF9F9F);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        .logo-icon i {
+            font-size: 2.5rem;
             color: white;
-            font-size: 1.5rem;
         }
 
         .logo-text {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            background: linear-gradient(to right, #8E7CFF, #FF9F9F);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-family: 'Playfair Display', serif;
         }
 
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .countdown-item {
+        .loading-bar {
+            width: 300px;
+            height: 4px;
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 1.5rem 1rem;
-            min-width: 100px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .countdown-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .countdown-label {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.7;
-        }
-
-        .teaser {
-            margin-top: 2rem;
-            font-style: italic;
-            opacity: 0.8;
+            border-radius: 2px;
+            margin: 30px auto;
+            overflow: hidden;
             position: relative;
         }
 
-        .teaser::before {
-            content: "✨";
+        .loading-progress {
             position: absolute;
-            left: -30px;
-            top: 50%;
-            transform: translateY(-50%);
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, #8E7CFF, #FF9F9F);
+            border-radius: 2px;
+            transition: width 0.3s ease;
         }
 
-        .floating {
+        .loading-text {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 20px;
+        }
+
+        .floating-text {
             position: absolute;
-            animation: floating 6s ease-in-out infinite;
-            opacity: 0.7;
+            font-size: 5rem;
+            opacity: 0.05;
+            font-weight: 700;
+            z-index: 1;
+            animation: float 15s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, 50px) rotate(5deg); }
+            50% { transform: translate(100px, 0) rotate(0deg); }
+            75% { transform: translate(50px, -50px) rotate(-5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
         }
 
-        @keyframes floating {
-            0%, 100% { transform: translateY(0) rotate(-5deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(142, 124, 255, 0.1) 0%, transparent 70%);
+            filter: blur(15px);
+            animation: float 25s infinite linear;
+            opacity: 0.7;
         }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            p {
-                font-size: 1rem;
-            }
-            
-            .countdown {
-                gap: 1rem;
-            }
-            
-            .countdown-item {
-                min-width: 80px;
-                padding: 1rem 0.5rem;
-            }
-            
-            .countdown-number {
-                font-size: 2rem;
-            }
+        /* Animation for the countdown */
+        .countdown {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 20px 0;
+            height: 60px;
+            color: #8E7CFF;
         }
 
-        @media (max-width: 480px) {
-            .countdown {
-                flex-wrap: wrap;
-            }
-            
-            .countdown-item {
-                min-width: 70px;
-                padding: 0.8rem 0.3rem;
-            }
-            
-            .countdown-number {
-                font-size: 1.8rem;
-            }
+        /* Skip button */
+        .skip-btn {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .skip-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
 <body>
-    <!-- Floating decorative elements -->
-    <div class="floating" style="top: 20%; left: 10%; font-size: 3rem; color: var(--primary);">✧</div>
-    <div class="floating" style="top: 70%; left: 85%; font-size: 3.5rem; color: var(--secondary); animation-delay: 1s;">✦</div>
-    <div class="floating" style="top: 40%; left: 80%; font-size: 4rem; color: var(--accent); animation-delay: 2s;">✿</div>
-    
-    <div class="container">
-        <div class="logo">
-            <div class="logo-icon">
-                <i class="fas fa-school"></i>
-            </div>
-            <div class="logo-text">Human Ix A</div>
-        </div>
-        
-        <h1>Album Kenangan Kita Segera Hadir!</h1>
-        <p>Website spesial berisi kenangan indah kita di SMP 2 Kaliwungu akan dirilis pada:</p>
-        
-        <div class="countdown" id="countdown">
-            <div class="countdown-item">
-                <div class="countdown-number" id="days">00</div>
-                <div class="countdown-label">Hari</div>
-            </div>
-            <div class="countdown-item">
-                <div class="countdown-number" id="hours">00</div>
-                <div class="countdown-label">Jam</div>
-            </div>
-            <div class="countdown-item">
-                <div class="countdown-number" id="minutes">00</div>
-                <div class="countdown-label">Menit</div>
-            </div>
-            <div class="countdown-item">
-                <div class="countdown-number" id="seconds">00</div>
-                <div class="countdown-label">Detik</div>
-            </div>
-        </div>
-        
-        <p class="teaser">Siap-siap bernostalgia dengan foto, cerita, dan momen spesial kita bersama!</p>
+    <!-- Floating background elements -->
+    <div class="particles">
+        <div class="particle" style="width: 300px; height: 300px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="particle" style="width: 200px; height: 200px; top: 60%; left: 70%; animation-delay: 2s;"></div>
+        <div class="particle" style="width: 250px; height: 250px; top: 30%; left: 40%; animation-delay: 4s;"></div>
     </div>
 
-    <script>
-        // Set the launch date (25th of current month at 00:00)
-        function getLaunchDate() {
-            const now = new Date();
-            const currentMonth = now.getMonth();
-            const currentYear = now.getFullYear();
-            
-            // If current date is after 25th, show next month's 25th
-            if (now.getDate() > 25) {
-                return new Date(currentYear, currentMonth + 1, 25);
-            } else {
-                return new Date(currentYear, currentMonth, 25);
-            }
-        }
+    <!-- Floating text background -->
+    <div class="floating-text" style="top: 20%; left: 10%;">IX A</div>
+    <div class="floating-text" style="top: 70%; left: 60%;">2025</div>
+    <div class="floating-text" style="top: 40%; left: 30%;">KENANGAN</div>
 
-        const launchDate = getLaunchDate();
+    <!-- Main opening content -->
+    <div class="opening-container">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-memory"></i>
+            </div>
+            <div class="logo-text">Kelas IX A</div>
+        </div>
+
+        <div class="countdown" id="countdown">3</div>
+
+        <div class="loading-bar">
+            <div class="loading-progress" id="loadingProgress"></div>
+        </div>
+
+        <div class="loading-text" id="loadingText">Memuat kenangan terindah...</div>
+    </div>
+
+    <!-- Skip button -->
+    <button class="skip-btn" id="skipBtn">
+        <i class="fas fa-forward"></i> Lewati
+    </button>
+
+    <script>
+        // Simulate loading progress
+        const loadingProgress = document.getElementById('loadingProgress');
+        const loadingText = document.getElementById('loadingText');
+        const countdown = document.getElementById('countdown');
+        const skipBtn = document.getElementById('skipBtn');
         
-        function updateCountdown() {
-            const now = new Date();
-            const diff = launchDate - now;
+        const loadingMessages = [
+            "Sabar, lagi disiapin foto-foto kenangan...",
+            "Memuat linimasa spesial...",
+            "Menyusun kutipan terbaik...",
+            "Hampir selesai...",
+            "Yeay, Udah siap bernostalgia nih!!"
+        ];
+        
+        let progress = 0;
+        let count = 3;
+        let loadingInterval;
+        let countdownInterval;
+        
+        // Update loading bar
+        function updateLoading() {
+            progress += Math.random() * 10;
+            if (progress > 100) progress = 100;
+            loadingProgress.style.width = `${progress}%`;
             
-            // If launch date has passed
-            if (diff <= 0) {
-                document.getElementById('countdown').innerHTML = `
-                    <div style="font-size: 1.5rem; color: var(--accent)">
-                        Website sudah dirilis! Segera kunjungi...
-                    </div>
-                `;
-                return;
+            // Change loading text at certain intervals
+            if (progress < 20) {
+                loadingText.textContent = loadingMessages[0];
+            } else if (progress < 40) {
+                loadingText.textContent = loadingMessages[1];
+            } else if (progress < 60) {
+                loadingText.textContent = loadingMessages[2];
+            } else if (progress < 80) {
+                loadingText.textContent = loadingMessages[3];
+            } else {
+                loadingText.textContent = loadingMessages[4];
             }
             
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            if (progress >= 100) {
+                clearInterval(loadingInterval);
+                redirectToMain();
+            }
         }
         
-        // Update immediately and then every second
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
+        // Countdown function
+        function updateCountdown() {
+            count--;
+            countdown.textContent = count;
+            
+            if (count <= 0) {
+                clearInterval(countdownInterval);
+                countdown.style.display = 'none';
+            }
+        }
+        
+        // Redirect to main website
+        function redirectToMain() {
+            window.location.href = "halaman-utama.html"; // Ganti dengan nama file website utama Anda
+        }
+        
+        // Start loading simulation after 1 second
+        setTimeout(() => {
+            loadingInterval = setInterval(updateLoading, 300);
+            countdownInterval = setInterval(updateCountdown, 1000);
+        }, 1000);
+        
+        // Skip button functionality
+        skipBtn.addEventListener('click', redirectToMain);
+        
+        // Add keyboard event to skip with spacebar or enter
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'Enter') {
+                redirectToMain();
+            }
+        });
     </script>
 </body>
 </html>
